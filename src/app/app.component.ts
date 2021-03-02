@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { PhotoService } from './photos/photo/photo.service';
+
+
 
 @Component({
   selector: 'app-root',
@@ -6,15 +10,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
-  photos= [
-    {
-      url: "https://s1.1zoom.me/big0/158/Lamborghini_White_background_Yellow_Metallic_566962_1280x853.jpg",
-      description: "carro amarelo"
-    },
-    {
-      url: "https://image.freepik.com/fotos-gratis/teste-de-carro-sedan-vermelho-na-estrada_114579-4061.jpg",
-      description: "carro vermelho"
-    }
-  ]
+export class AppComponent implements OnInit{
+
+  photos: any[] = [];
+  
+  constructor(private photoService: PhotoService){ }
+
+  ngOnInit() :void {
+    this.photoService.listFromUser('flavio')
+    .subscribe(photos =>  this.photos = photos  );
+  }
+
 }
